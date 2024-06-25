@@ -12,6 +12,10 @@ services:
     networks:
       - frontend
       - backend
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
 
   frontend:
     build: ./social-network-frontend/social-network
@@ -21,6 +25,10 @@ services:
       - "3000:3000"
     networks:
       - frontend
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: any
 
   backend:
     build: ./social-network-backend
@@ -37,6 +45,10 @@ services:
       - DB_NAME=mydatabase
     networks:
       - backend
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: any
 
   mysql:
     image: mysql:latest
@@ -51,6 +63,10 @@ services:
       - mysql-data:/var/lib/mysql
     networks:
       - backend
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
 
 networks:
   frontend:
