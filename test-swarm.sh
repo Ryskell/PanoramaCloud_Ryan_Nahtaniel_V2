@@ -14,3 +14,4 @@ multipass exec manager -- docker service logs myapp_mysql
 MANAGER_IP=$(multipass info manager | grep IPv4 | awk '{print $2}')
 curl http://$MANAGER_IP:3000
 curl http://$MANAGER_IP:3001
+

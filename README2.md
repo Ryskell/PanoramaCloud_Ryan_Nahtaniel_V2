@@ -46,3 +46,13 @@ chmod +x test-swarm.sh
 ./test-swarm.sh
 
 # (MAC OS ET LINUX) Simplement utiliser les deux commandes précédentes
+
+
+# Tester le statut des services
+
+docker stack services myapp
+
+# Verifier les conteneurs en cours d'execution
+
+docker ps
+
