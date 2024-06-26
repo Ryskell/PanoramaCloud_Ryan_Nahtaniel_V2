@@ -86,7 +86,7 @@ Vous trouverez notre réseau swarm initialisé grace à notre fichier "setup-swa
 
 ## AWS
 
-Vous trouverez le déploiement terraform dans le dossier terraform, mais aussi 
+Vous trouverez le déploiement terraform dans les dossiers terraform, ansible, mais aussi dans le fichier setup-swarm qui s'occupe de son déploiement. C'est également dans le fichier setup que l'on geère la configuration avec Ansible
 
 ## Monitoring avec Prometheus et Grafana
 
