@@ -1,53 +1,82 @@
-# GraphQL Project - Social Network for Recipe Management
+#   CONSTRUIRE ET DEMARRER LES SERVICES 
+```
+docker-compose up --build
+```
+# DEMARRER LES SERVICES 
+```
+docker-compose up 
+```
+# RECREER DES CONTENEURS
+```
+docker-compose up --force-recreate
+```
+# ARRETER LES SERVICES 
+```
+docker-compose down
+```
+---
 
-This project is a social network application designed for managing recipes. Users can share recipes, leave reviews and comments, and discover trending recipes daily. The application also includes a feature to filter recipes based on the ingredients users have available.
+# INITIALISER LE RESEAU SWARM
 
-## Project Description
-The project is an application that allows for recipe management by providing reviews and comments, proposing recipes, and featuring a trending recipe of the day to give users
+ (WINDOWS) Téléchargez et installez Git pour Windows depuis gitforwindows.org
 
-## Backend Setup
+ Cliquez droit sur le dossier contenant votre script setup-swarm.sh et sélectionnez "Git Bash Here" pour ouvrir Git Bash dans ce répertoire.
 
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/thibzntm/graphql_projet.git
-   ```
+ Dans Git Bash, rendez le script exécutable avec la commande suivante :
 
-2. Navigate to the backend directory:
-   ```sh
-   cd .\graphql_projet\social-network-backend\
-   ```
+```
+chmod +x setup-swarm.sh
+```
 
-3. Install the dependencies:
-   ```sh
-   npm install
-   ```
+ Toujours dans Git Bash, exécutez le script avec la commande suivante  :
 
-4. Start the backend server:
-   ```sh
-   npm run start
-   ```
+```
+./setup-swarm.sh
+```
 
-![Backend Running](https://cdn.discordapp.com/attachments/1161291448277270660/1242481750743973900/image.png?ex=664dfecd&is=664cad4d&hm=eaf4ddf79261f8750d669f7d2fc94f6bf390265e506303cd39384cc06bbac14f&)
+ (MAC OS ET LINUX) Simplement utiliser les deux commandes précédentes
 
-## Frontend Setup
 
-1. Open a new terminal.
+#  TESTER LE RESEAU SWARM 
 
-2. Navigate to the frontend directory:
-   ```sh
-   cd .\graphql_projet\social-network-frontend\social-network\
-   ```
+ Cliquez droit sur le dossier contenant votre script test-swarm.sh et sélectionnez "Git Bash Here" pour ouvrir Git Bash dans ce répertoire.
 
-3. Install the dependencies:
-   ```sh
-   npm install
-   ```
+ Dans Git Bash, rendez le script exécutable avec la commande suivante :
 
-4. Start the frontend server:
-   ```sh
-   npm run dev
-   ```
+```
+chmod +x test-swarm.sh
+```
 
-![Frontend Running](https://cdn.discordapp.com/attachments/1161291448277270660/1242488361281916939/image.png?ex=664e04f5&is=664cb375&hm=d7a517de8560cdbc3f7a7e0b699dd3efbe7558898f096e3ce712569a950a7efa&)
+ Toujours dans Git Bash, exécutez le script avec la commande suivante  :
 
-# Frontend will run on: http://localhost:5173/
+```
+./test-swarm.sh
+```
+
+ (MAC OS ET LINUX) Simplement utiliser les deux commandes précédentes
+
+
+ Tester le statut des services
+
+```
+docker stack services myapp
+```
+
+ Verifier les conteneurs en cours d'execution
+
+```
+docker ps
+```
+
+---
+
+# Documentation
+
+## Docker
+
+Il y a en tout 3 dockerfile, que vous retrouverez dans les dossiers "scocial-network-frontend", "social-network-backend" , "node_exporter", "prometheus" . Cela permet d'avoir une image pour la partie front, une pour le back, une pour les exporters Prometheus.
+
+## Docker Compose
+
+Notre fichier docker-compose.yml se trouve à la racine du projet, il orchestre nos différents services. Le front,back et data ont bien été séparés, et sont organisé en différents réseaux. Nous avons également fait en sorte que notre projet soit résilient aux pannes.
+

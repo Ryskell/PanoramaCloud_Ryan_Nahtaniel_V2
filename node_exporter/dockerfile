@@ -1,1 +1,3 @@
 FROM prom/node-exporter:latest
+
+# créer une image Docker à partir de l'image officielle prom/node-exporter:latest. Le node-exporter de Prometheus est un outil de monitoring qui collecte et expose les métriques des systèmes d'exploitation pour que Prometheus puisse les collecter et les analyser

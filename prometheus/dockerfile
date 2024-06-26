@@ -1,2 +1,4 @@
 FROM prom/prometheus:latest
 COPY prometheus.yml /etc/prometheus/
+
+# créer une image Docker de Prometheus, un système de monitoring et d'alerte open source, avec une configuration spécifique.

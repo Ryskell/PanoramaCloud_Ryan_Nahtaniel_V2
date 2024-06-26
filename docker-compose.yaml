@@ -3,146 +3,146 @@ services:
   nginx:
     image: nginx:latest
     ports:
-      - "80:80"
+      - "80:80" # Expose le port 80 pour l'accès HTTP
     volumes:
-      - ./nginx/default.conf:/etc/nginx/default.conf:ro
+      - ./nginx/default.conf:/etc/nginx/default.conf:ro # Monte le fichier de configuration Nginx
     depends_on:
-      - frontend
-      - backend
+      - frontend # Dépendance au service frontend
+      - backend # Dépendance au service backend
     networks:
       - frontend
       - backend
     deploy:
-      replicas: 3
+      replicas: 3 # Réplication pour la tolérance aux pannes
       restart_policy:
-        condition: on-failure
+        condition: on-failure # Redémarre le conteneur en cas d'échec
 
   frontend:
-    build: ./social-network-frontend/social-network
+    build: ./social-network-frontend/social-network # Chemin pour construire l'image Docker frontend
     volumes:
-      - ./social-network-frontend/social-network:/usr/src/app
+      - ./social-network-frontend/social-network:/usr/src/app # Monte le code source du frontend
     ports:
-      - "3000:3000"
+      - "3000:3000" # Expose le port 3000
     networks:
       - frontend
     deploy:
-      replicas: 2
+      replicas: 2 # Réplication pour la tolérance aux pannes
       restart_policy:
-        condition: any
+        condition: any # Redémarre le conteneur dans tous les cas
 
   backend:
-    build: ./social-network-backend
+    build: ./social-network-backend # Chemin pour construire l'image Docker backend
     volumes:
-      - ./social-network-backend:/usr/src/app
+      - ./social-network-backend:/usr/src/app # Monte le code source du backend
     ports:
-      - "3001:3001"
-    depends_on :
-      - mysql
+      - "3001:3001" # Expose le port 3001
+    depends_on:
+      - mysql # Dépendance au service MySQL
     environment:
-      - DB_HOST=mysql
+      - DB_HOST=mysql # Configuration de la base de données
       - DB_USER=root
       - DB_PASSWORD=example
       - DB_NAME=mydatabase
     networks:
       - backend
     deploy:
-      replicas: 2
+      replicas: 2 # Réplication pour la tolérance aux pannes
       restart_policy:
-        condition: any
+        condition: any # Redémarre le conteneur dans tous les cas
 
   mysql:
     image: mysql:latest
     environment:
-      MYSQL_ROOT_PASSWORD: example
-      MYSQL_DATABASE: mydatabase
-      MYSQL_USER: myuser
-      MYSQL_PASSWORD: mypassword
+      MYSQL_ROOT_PASSWORD: example # Mot de passe root de MySQL
+      MYSQL_DATABASE: mydatabase # Base de données par défaut
+      MYSQL_USER: myuser # Utilisateur MySQL
+      MYSQL_PASSWORD: mypassword # Mot de passe de l'utilisateur
     ports:
-      - "3306:3306"
+      - "3306:3306" # Expose le port 3306 pour MySQL
     volumes:
-      - mysql-data:/var/lib/mysql
+      - mysql-data:/var/lib/mysql # Volume pour la persistance des données
     networks:
       - backend
     deploy:
-      replicas: 1
+      replicas: 1 # Un seul conteneur pour MySQL
       restart_policy:
-        condition: on-failure
-  
+        condition: on-failure # Redémarre en cas d'échec
+
   prometheus:
-  build: ./prometheus
-  ports:
-    - "9090:9090"
-  volumes:
-    - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-  networks:
-    - frontend
-    - backend
-  deploy:
-    replicas: 1
-    restart_policy:
-      condition: on-failure
+    build: ./prometheus # Chemin pour construire l'image Docker Prometheus
+    ports:
+      - "9090:9090" # Expose le port 9090 pour Prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml # Monte le fichier de configuration Prometheus
+    networks:
+      - frontend
+      - backend
+    deploy:
+      replicas: 1 # Un seul conteneur pour Prometheus
+      restart_policy:
+        condition: on-failure # Redémarre en cas d'échec
 
   grafana:
     image: grafana/grafana:latest
     ports:
-      - "3000:3000"
+      - "3000:3000" # Expose le port 3000 pour Grafana
     volumes:
-      - grafana-storage:/var/lib/grafana
+      - grafana-storage:/var/lib/grafana # Volume pour la persistance des données Grafana
     networks:
       - frontend
       - backend
     deploy:
-      replicas: 1
+      replicas: 1 # Un seul conteneur pour Grafana
       restart_policy:
-        condition: on-failure   
+        condition: on-failure # Redémarre en cas d'échec
 
   node_exporter_manager:
-    build: ./node_exporter
+    build: ./node_exporter # Chemin pour construire l'image Docker Node Exporter
     networks:
       - frontend
       - backend
     deploy:
-      replicas: 1
+      replicas: 1 # Un seul conteneur pour le Node Exporter du manager
       restart_policy:
-        condition: on-failure
+        condition: on-failure # Redémarre en cas d'échec
       placement:
         constraints:
-          - node.hostname == manager
+          - node.hostname == manager # S'assure que ce conteneur est déployé sur le noeud 'manager'
 
   node_exporter_worker1:
-    build: ./node_exporter
+    build: ./node_exporter # Chemin pour construire l'image Docker Node Exporter
     networks:
       - frontend
       - backend
     deploy:
-      replicas: 1
+      replicas: 1 # Un seul conteneur pour le Node Exporter du worker1
       restart_policy:
-        condition: on-failure
+        condition: on-failure # Redémarre en cas d'échec
       placement:
         constraints:
-          - node.hostname == worker1
+          - node.hostname == worker1 # S'assure que ce conteneur est déployé sur le noeud 'worker1'
 
   node_exporter_worker2:
-    build: ./node_exporter
+    build: ./node_exporter # Chemin pour construire l'image Docker Node Exporter
     networks:
       - frontend
       - backend
     deploy:
-      replicas: 1
+      replicas: 1 # Un seul conteneur pour le Node Exporter du worker2
       restart_policy:
-        condition: on-failure
+        condition: on-failure # Redémarre en cas d'échec
       placement:
         constraints:
-          - node.hostname == worker2 
+          - node.hostname == worker2 # S'assure que ce conteneur est déployé sur le noeud 'worker2'
 
 networks:
   frontend:
-    driver: bridge
-  backend: 
-    driver: bridge
+    driver: bridge # Réseau bridge pour les services frontend
+  backend:
+    driver: bridge # Réseau bridge pour les services backend
 
 volumes:
   mysql-data:
-    driver: local
+    driver: local # Volume pour persister les données MySQL
   grafana-storage:
-    driver: local
+    driver: local # Volume pour persister les données Grafana

@@ -1,22 +1,24 @@
-# Dockerfile for Frontend Service
+# Dockerfile pour le service Frontend
 FROM node:latest
 
-# Create app directory
+# Créer le répertoire de l'application
 WORKDIR /usr/src/app
 
-# Install app dependencies
+# Installer les dépendances de l'application
 COPY package*.json ./
 
 RUN npm install 
 
-# Bundle app source
+# Copier le code source de l'application
 COPY . .
 
-# Build the application
+# Construire l'application
 RUN npm run build
 
-# Expose the port the app runs on
+# Exposer le port sur lequel l'application fonctionne
 EXPOSE 3000
 
-# Command to run the app
+# Commande pour exécuter l'application
 CMD [ "npm", "start" ]
+
+# Ce fichier Dockerfile construit une image Docker pour le service frontend en installant les dépendances, en copiant le code source, en construisant l'application et en définissant la commande pour exécuter l'application.
