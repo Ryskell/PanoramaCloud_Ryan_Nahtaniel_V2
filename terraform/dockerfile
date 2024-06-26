@@ -1,0 +1,5 @@
+# Dockerfile pour Terraform
+FROM hashicorp/terraform:latest
+
+# Installer d'autres dépendances si nécessaire
+RUN apk add --no-cache bash

@@ -74,7 +74,7 @@ docker ps
 
 ## Docker
 
-Il y a en tout 3 dockerfile, que vous retrouverez dans les dossiers "scocial-network-frontend", "social-network-backend" , "node_exporter", "prometheus" . Cela permet d'avoir une image pour la partie front, une pour le back, une pour les exporters Prometheus.
+Il y a en tout 5 dockerfile, que vous retrouverez dans les dossiers "scocial-network-frontend", "social-network-backend" , "node_exporter", "prometheus" et "terraform" . Cela permet d'avoir une image pour la partie front, une pour le back, une pour les exporters Prometheus, une pour le déploiement terraform.
 
 ## Docker Compose
 
@@ -83,6 +83,10 @@ Notre fichier docker-compose.yml se trouve à la racine du projet, il orchestre 
 ## Docker Swarm
 
 Vous trouverez notre réseau swarm initialisé grace à notre fichier "setup-swarm.sh" à la racine, qui déploie un bon nombre de services de notre projet .
+
+## AWS
+
+Vous trouverez le déploiement terraform dans le dossier terraform, mais aussi 
 
 ## Monitoring avec Prometheus et Grafana
 

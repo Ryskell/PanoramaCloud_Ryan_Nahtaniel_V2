@@ -134,6 +134,16 @@ services:
       placement:
         constraints:
           - node.hostname == worker2 # S'assure que ce conteneur est déployé sur le noeud 'worker2'
+  
+  terraform:
+    build: ./terraform
+    networks:
+      - backend
+    volumes:
+      - ./terraform:/workspace
+    working_dir: /workspace
+    entrypoint: /bin/sh
+    command: ["-c", "terraform init && terraform apply -auto-approve"]
 
 networks:
   frontend:
