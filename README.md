@@ -80,3 +80,10 @@ Il y a en tout 3 dockerfile, que vous retrouverez dans les dossiers "scocial-net
 
 Notre fichier docker-compose.yml se trouve à la racine du projet, il orchestre nos différents services. Le front,back et data ont bien été séparés, et sont organisé en différents réseaux. Nous avons également fait en sorte que notre projet soit résilient aux pannes.
 
+## Docker Swarm
+
+Vous trouverez notre réseau swarm initialisé grace à notre fichier "setup-swarm.sh" à la racine, qui déploie un bon nombre de services de notre projet .
+
+## Monitoring avec Prometheus et Grafana
+
+C'est la derniere technologie que nous avons intégré, mais nous n'avions pas fini. Les avancés sont disponiles dans le dossier Prometheus, mais aussi dans le docker-compose et le setup-swarm.
